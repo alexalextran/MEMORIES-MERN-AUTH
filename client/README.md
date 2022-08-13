@@ -1,0 +1,2 @@
+Hi thanks for checking out my github, this is a simple project i decided to work on based off a tutorial to develop my skills as a full stack web developer
+if you wish to view the project please click the following link https://alexalextran.github.io/Memories_MERN/ enjoy!

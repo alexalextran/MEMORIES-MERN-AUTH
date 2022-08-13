@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/Memories_MERN/static/css/main.7bfad5cb.css",
+    "main.js": "/Memories_MERN/static/js/main.38b33fb0.js",
+    "static/media/memories.png": "/Memories_MERN/static/media/memories.9cfa8a4697e085d87136.png",
+    "index.html": "/Memories_MERN/index.html",
+    "main.7bfad5cb.css.map": "/Memories_MERN/static/css/main.7bfad5cb.css.map",
+    "main.38b33fb0.js.map": "/Memories_MERN/static/js/main.38b33fb0.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7bfad5cb.css",
+    "static/js/main.38b33fb0.js"
+  ]
+}
