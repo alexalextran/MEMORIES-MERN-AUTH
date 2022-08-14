@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
-import {Avatar, Button, Paper, Grid, Typography, Container} from '@material-ui/core'
+import {Avatar, Button, Paper, Grid, Typography, Container, Icon} from '@material-ui/core'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import useStyles from './styles'
 import Input from './Input';
+import {GoogleLogin} from '@react-oauth/google'
+import { useDispatch } from 'react-redux';
+
+
 const Auth = () => {
     const classes = useStyles()
-
-    const isSignup = false;
     const [showPassword, setshowPassword] = useState(false);
-
+    const [isSignup, setisSignup] = useState(false);
     const handleSubmit = () => {
 
     }
@@ -18,8 +20,17 @@ const Auth = () => {
     }
 
     const handleChange = () => {
-
     }
+
+    const googleSuccess = async (res) => {
+        console.log(res)
+    }
+    const googleFailure = (error) => {
+        console.log(error)
+        console.log("sign in was unsuccsessful")
+    }
+
+    
     return (
         <Container component="main" maxWidth="xs">
         <Paper className={classes.paper} elevation={3}>
@@ -42,6 +53,22 @@ const Auth = () => {
             <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
               { isSignup ? 'Sign Up' : 'Sign In' }
             </Button>
+            <GoogleLogin render={(renderProps) => (
+              <Button className={classes.googleButton} color="primary" fullWidth={true} onClick={renderProps.onClick} disabled={renderProps.disabled} startIcon={<Icon />} variant="contained">
+                Google Sign In
+              </Button>
+            )}
+            onSuccess={googleSuccess}
+            onFailure={googleFailure}
+            cookiePolicy="single_host_origin"/>
+            <Grid container justifyContent="flex-end" >
+                <Grid item>
+                    <Button onClick={() => {setisSignup(!isSignup)}}>{
+                        isSignup ? 'Already have an account? Sign In' : "Don't have an account? Sign Up"
+                    }</Button>
+                </Grid>
+
+            </Grid>
                 </form>
             </Paper>
         </Container>
