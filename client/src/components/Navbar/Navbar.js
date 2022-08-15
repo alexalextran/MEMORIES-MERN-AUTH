@@ -2,14 +2,36 @@ import React, { useEffect, useState } from 'react';
 import { AppBar, Avatar, Toolbar, Typography, Button} from '@material-ui/core'
 import memories from '../../Images/memories.png'
 import useStyles from './styles'
-import {Link} from 'react-router-dom'
+import {Link, useLocation} from 'react-router-dom'
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
     const classes = useStyles()
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const location = useLocation()
 
-const [user, setuser] = useState(JSON.parse(localStorage.getItem('profile')).data)
+    const [user, setuser] = useState(JSON.parse(localStorage.getItem('profile')))
 
-console.log(user) 
+    
+
+    const logout = () => {
+        dispatch({type: 'LOGOUT'})
+
+        navigate('/');
+
+        setuser(null)
+    }
+    useEffect(() => {
+      setuser(JSON.parse(localStorage.getItem('profile')))
+      
+    }, [location])
+    
+
+
+
+ 
 
 return (
     <AppBar className={classes.appBar} position="static" color="inherit">
@@ -20,9 +42,9 @@ return (
       <Toolbar className={classes.toolbar}>
         {user ? (
           <div className={classes.profile}>
-            <Avatar className={classes.purple} alt={user?.name} src={user?.imageUrl}>{user?.name.charAt(0)}</Avatar>
-            <Typography className={classes.userName} variant="h6">{user?.name}</Typography>
-            <Button variant="contained" className={classes.logout} color="secondary">Logout</Button>
+            <Avatar className={classes.purple} alt={user?.data.name} src={user?.data.imageUrl}>{user?.data.name.charAt(0)}</Avatar>
+            <Typography className={classes.userName} variant="h6">{user?.data.name}</Typography>
+            <Button variant="contained" className={classes.logout} color="secondary" onClick={logout}>Logout</Button>
           </div>
         ) : (
           <Button component={Link} to="/auth" variant="contained" color="primary">Sign In</Button>
