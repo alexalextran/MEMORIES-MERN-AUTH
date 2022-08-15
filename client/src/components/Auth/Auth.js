@@ -3,22 +3,24 @@ import { useDispatch } from 'react-redux';
 import { Avatar, Button, Paper, Grid, Typography, Container } from '@material-ui/core';
 import { GoogleLogin } from '@react-oauth/google';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import Icon from './icon';
 import jwt_decode from 'jwt-decode'
 
 import { AUTH } from '../../constants/actionTypes';
 import useStyles from './styles';
 import Input from './Input';
+import {signin, signup} from '../../actions/auth'
 
 const initialState = { firstName: '', lastName: '', email: '', password: '', confirmPassword: '' };
 
 const SignUp = () => {
-  let navigate = useNavigate();
   const [form, setForm] = useState(initialState);
   const [isSignup, setIsSignup] = useState(false);
   const dispatch = useDispatch();
   const classes = useStyles();
+  const [formData, setformData] = useState(initialState)
+  const navigate = useNavigate()
 
   const [showPassword, setShowPassword] = useState(false);
   const handleShowPassword = () => setShowPassword(!showPassword);
@@ -30,10 +32,16 @@ const SignUp = () => {
   };
 
   const handleSubmit = (e) => {
+    console.log(formData)
     e.preventDefault();
 
-   
+    if(isSignup){
+      dispatch(signup(formData, Navigate))
+    } else {
+      dispatch(signin(formData, Navigate))
+    }
   };
+  const handleChange = (e) => setformData({ ...formData, [e.target.name]: e.target.value });
 
   const googleSuccess = async (res) => {
   
@@ -49,7 +57,7 @@ const SignUp = () => {
 
   const googleError = () => alert('Google Sign In was unsuccessful. Try again later');
 
-  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+
 
   return (
     <Container component="main" maxWidth="xs">
