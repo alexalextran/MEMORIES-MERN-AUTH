@@ -3,7 +3,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import cors from 'cors';
-
+import userRoutes from './routes/users.js'
 import postRoutes from './routes/posts.js';
 
 const app = express();
@@ -13,10 +13,13 @@ app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }))
 app.use(cors());
 
 app.use('/posts', postRoutes);
+app.use('/user', useRoutes)
 
 app.get('/', (req, res) => {
     res.send('Hellow to Memories API')
 })
+
+
 
 const PORT = process.env.PORT|| 5000;
 
