@@ -18,9 +18,8 @@ const SignUp = () => {
   const [form, setForm] = useState(initialState);
   const [isSignup, setIsSignup] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const classes = useStyles();
-  const [formData, setformData] = useState(initialState)
-  const navigate = useNavigate()
 
   const [showPassword, setShowPassword] = useState(false);
   const handleShowPassword = () => setShowPassword(!showPassword);
@@ -32,16 +31,16 @@ const SignUp = () => {
   };
 
   const handleSubmit = (e) => {
-    console.log(formData)
     e.preventDefault();
 
-    if(isSignup){
-      dispatch(signup(formData, Navigate))
+    if (isSignup) {
+      dispatch(signup(form, navigate));
     } else {
-      dispatch(signin(formData, Navigate))
+      dispatch(signin(form, navigate));
     }
   };
-  const handleChange = (e) => setformData({ ...formData, [e.target.name]: e.target.value });
+
+  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
   const googleSuccess = async (res) => {
   
@@ -70,7 +69,7 @@ const SignUp = () => {
           <Grid container spacing={2}>
             { isSignup && (
             <>
-              <Input name="firstName" label="First Name" handleChange={handleChange} autoFocus half />
+             <Input name="firstName" label="First Name" handleChange={handleChange} autoFocus half />
               <Input name="lastName" label="Last Name" handleChange={handleChange} half />
             </>
             )}
